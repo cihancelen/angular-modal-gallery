@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DIRECTIVES } from './directives/directives';
@@ -36,6 +36,7 @@ import { PlainGalleryComponent } from './components/plain-gallery/plain-gallery.
 
 // to prevent bad scrolling behaviour on mobile phone with carousels.
 // From @mohaxspb (https://github.com/Ks89/angular-modal-gallery/pull/187)
+@Injectable()
 export class KsHammerGestureConfig extends HammerGestureConfig {
   buildHammer(element: HTMLElement) {
     return new Hammer(element, {
@@ -64,7 +65,7 @@ export class GalleryModule {
    * Importing with '.forRoot()' is deprecated. I'll provide a new way to do this in next releases.
    * Will be removed in 8.0.0 or 9.0.0
    */
-  static forRoot(config?: KeyboardServiceConfig): ModuleWithProviders {
+  static forRoot(config?: KeyboardServiceConfig): ModuleWithProviders<GalleryModule> {
     return {
       ngModule: GalleryModule,
       providers: [
